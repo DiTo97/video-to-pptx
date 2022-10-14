@@ -2,6 +2,8 @@
 
 A video-to-PPTX-slides converter whose main goal is to convert scientific presentation to PPTX slides.
 
+**N.B.:** The converter only supports videos hosted on YouTube for now.
+
 The conversion process is roughly nine-fold:
 
 - [ ] The video is downloaded in memory or to file storage with the [Pytube](https://pytube.io/en/latest/index.html) package;
@@ -16,4 +18,3 @@ The conversion process is roughly nine-fold:
 
 
 *An example of [creating a PPTX presentation with Python-PPTX](https://towardsdatascience.com/creating-presentations-with-python-3f5737824f61).  
-**N.B.:** The converter only supports videos hosted on YouTube for now.
