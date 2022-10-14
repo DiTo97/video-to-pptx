@@ -1,5 +1,6 @@
 attrs==22.1.0
 coverage==6.5.0
+frozendict==2.3.4
 iniconfig==1.1.1
 lxml==4.9.1
 packaging==21.3
