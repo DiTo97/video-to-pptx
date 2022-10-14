@@ -20,6 +20,9 @@ __pycache__/
 celerybeat-schedule
 celerybeat.pid
 
+# Data
+**/tests/stubs/samples/
+
 # Distribution / packaging
 .Python
 build/
