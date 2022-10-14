@@ -1,0 +1,9 @@
+video-to-pttx:
+  plan: https://github.com/DiTo97/travelplan-py3.git
+  checkout: plan/library
+  config:
+    name: video-to-pttx
+    package_name: video2pttx
+    author: Federico Minutoli
+    author_email: fede97.minutoli@gmail.com
+    description: A video-to-PPTX-slides converter whose main goal is to convert scientific presentation to PPTX slides.
