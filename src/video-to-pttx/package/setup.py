@@ -1,11 +1,12 @@
 import pathlib
+import typing
 from setuptools import find_packages, setup
 
 
 _ROOT = pathlib.Path(__file__).parent.resolve()
 
 
-def _find_requirements() -> list[str]:
+def _find_requirements() -> typing.List[str]:
     """It finds Python requirements in 'requirements.txt'"""
     filepath = _ROOT / "requirements.txt"
 
@@ -13,7 +14,7 @@ def _find_requirements() -> list[str]:
         return f.read().splitlines()
 
 
-def _find_resources_paths() -> list[str]:
+def _find_resources_paths() -> typing.List[str]:
     """It finds resources paths under 'video2pttx/resources/'"""
     dirname = "video2pttx"
     dirpath = _ROOT / dirname / "resources"
