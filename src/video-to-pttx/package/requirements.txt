@@ -1,0 +1,5 @@
+lxml==4.9.1
+Pillow==9.2.0
+python-pptx==0.6.21
+pytube==12.1.0
+XlsxWriter==3.0.3
