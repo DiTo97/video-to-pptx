@@ -1,5 +1,8 @@
 # video-to-pptx
 
+[![Generic badge](https://img.shields.io/badge/status-alpha-green.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/python-3.8%20|%203.9%20|%203.10-blue.svg)](https://shields.io/)
+
 A video-to-PPTX-slides converter whose main goal is to convert scientific presentation to PPTX slides.
 
 **N.B.:** The converter only supports videos hosted on YouTube for now.
