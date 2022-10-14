@@ -9,7 +9,7 @@ A video-to-PPTX-slides converter whose main goal is to convert scientific presen
 
 The conversion process is roughly nine-fold:
 
-- [ ] The video is downloaded in memory or to file storage with the [Pytube](https://pytube.io/en/latest/index.html) package;
+- [X] The video is downloaded in memory or to file storage with the [Pytube](https://pytube.io/en/latest/index.html) package;
 - [ ] A sequence of frames is extracted from the video;
 - [ ] A sequence of captions is extracted from the video;
 - [ ] Too similar adjacent frames are filtered out, as they likely coincide with longer explanations by the author;
