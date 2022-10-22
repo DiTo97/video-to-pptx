@@ -19,7 +19,7 @@ def xml_caption_to_srt(xml_caption: str) -> str:
 
     segments = []
 
-    for i, child in enumerate(list(root.findall("body/p"))):
+    for idx, child in enumerate(list(root.findall("body/p"))):
         text = child.text or ""
 
         if not text:
@@ -41,9 +41,9 @@ def xml_caption_to_srt(xml_caption: str) -> str:
         t_start = float(child.attrib["t"])  # millisecs
 
         try:
-            t_end = float(root.findall("body/p")[i + 2].attrib["t"])
+            t_end = float(root.findall("body/p")[idx + 2].attrib["t"])
         except Exception:
-            t_end = float(root.findall("body/p")[i].attrib["t"])
+            t_end = float(root.findall("body/p")[idx].attrib["t"])
             t_end = t_end + duration        # millisecs
 
         t_start_secs = t_start / 1000
@@ -52,7 +52,7 @@ def xml_caption_to_srt(xml_caption: str) -> str:
         start = Caption.float_to_srt_time_format(t_start_secs)
         end   = Caption.float_to_srt_time_format(t_end_secs)
 
-        line = f"{i + 1}\n{start} --> {end}\n{caption}\n"
+        line = f"{idx + 1}\n{start} --> {end}\n{caption}\n"
 
         segments.append(line)
 
