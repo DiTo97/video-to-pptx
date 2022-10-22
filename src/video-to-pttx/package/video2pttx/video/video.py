@@ -4,8 +4,6 @@ from dataclasses import dataclass
 from datetime import datetime
 from enum import auto
 
-from video2pttx.video.caption import CaptionType
-
 
 class VideoResolution(enum.Enum):
     """A class that wraps the desired video resolution"""
