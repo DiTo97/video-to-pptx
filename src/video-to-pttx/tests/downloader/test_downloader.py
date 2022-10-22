@@ -1,5 +1,4 @@
 import pytest
-import typing
 
 from video2pttx import ROOT
 from video2pttx.downloader.downloader import download
@@ -32,4 +31,12 @@ def test_download(raw):
     filename = f"{title}.{extension}"
     filepath = samples_dirpath / filename
 
+    assert video_metadata.filepath == str(filepath)
     assert filepath.exists()
+
+    caption_filename = f"{title}.srt"
+    caption_filepath = samples_dirpath / caption_filename
+
+    if video_metadata.caption_filepath is not None:
+        assert video_metadata.caption_filepath == str(caption_filepath)
+        assert caption_filepath.exists()
