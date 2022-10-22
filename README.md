@@ -9,11 +9,12 @@ A video-to-PPTX-slides converter whose main goal is to convert scientific presen
 
 The conversion process is roughly nine-fold:
 
-- [X] The video is downloaded in memory or to file storage with the [Pytube](https://pytube.io/en/latest/index.html) package;
-- [ ] A sequence of frames is extracted from the video;
-- [ ] A sequence of captions is extracted from the video;
+- [x] The video is downloaded in memory or to file storage with the [Pytube](https://pytube.io/en/latest/index.html) package;
+- [x] A sequence of frames is extracted from the video;
+- [x] A sequence of subtitles is extracted from the video caption;
+- [ ] The sequences may have to be temporally aligned;
 - [ ] Too similar adjacent frames are filtered out, as they likely coincide with longer explanations by the author;
-- [ ] If any frames have been filtered out, we might have to join some of the captions to align the sequences;
+- [ ] If any frames have been filtered out, we might have to join some subtitles to align the sequences;
 - [ ] The frames in the reduced sequence are [converted to SVG](https://github.com/IngJavierR/PngToSvg) to infer their structure;
 - [ ] The SVG frames are converted to unpolished PPTX slides with an [SVG-to-PPTX converter](https://github.com/udp/svg-to-pptx);
 - [ ] The unpolished PPTX slides are better formalized with the [Python-PPTX](https://python-pptx.readthedocs.io/en/latest/index.html) package*;
