@@ -1,6 +1,5 @@
 import random
 import typing
-from functools import lru_cache
 
 from pytube import Stream, StreamQuery, YouTube
 
@@ -25,7 +24,6 @@ def _choose_stream(streams: StreamQuery, resolution: VideoResolution) -> Stream:
     return streams.all()[idx]
 
 
-@lru_cache(maxsize=5)
 def download(
     vid_or_url: str,
     output_dirpath: str, 
