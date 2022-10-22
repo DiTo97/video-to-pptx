@@ -28,7 +28,7 @@ def main():
         "author_email": "fede97.minutoli@gmail.com",
         "description": 
             "A video-to-PPTX-slides converter whose main goal is to convert "
-            "scientific presentation to PPTX slides.",
+            "scientific presentations to PPTX slides.",
         "install_requires": _find_requirements(),
         "name": "video2pttx",
         "packages": find_packages(),
