@@ -1,7 +1,7 @@
 import pytest
 
 from video2pttx import ROOT
-from video2pttx.downloader.downloader import download
+from video2pttx.downloader import download
 
 
 _ROOT_stubs = ROOT.parents[1] / "tests" / "stubs"
@@ -34,9 +34,17 @@ def test_download(raw):
     assert video_metadata.filepath == str(filepath)
     assert filepath.exists()
 
+    filepath.unlink()
+
+    assert not filepath.exists()
+
     caption_filename = f"{title}.srt"
     caption_filepath = samples_dirpath / caption_filename
 
     if video_metadata.caption_filepath is not None:
         assert video_metadata.caption_filepath == str(caption_filepath)
         assert caption_filepath.exists()
+
+        caption_filepath.unlink()
+
+        assert not caption_filepath.exists()
