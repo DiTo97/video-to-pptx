@@ -17,10 +17,9 @@ class VideoResolution(enum.Enum):
 @dataclass
 class VideoMetadata:
     author: str
-    caption_str : typing.Optional[str]
-    caption_type: typing.Optional[CaptionType]
     description: str
     filepath: str
+    caption_filepath: typing.Optional[str]
     keywords: typing.List[str]
     publish_datetime: datetime
     rating: float
