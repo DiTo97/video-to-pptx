@@ -1,6 +1,7 @@
 import random
 import typing
 
+import validators
 from pytube import Stream, StreamQuery, YouTube
 
 from video2pttx.video.caption import CaptionType
@@ -32,19 +33,20 @@ def download(
     allow_oauth_cache: bool = True,
     file_extension: str = "mp4",
     lang_code: str = "en",
-    video_resolution: VideoResolution = VideoResolution.highest
+    resolution: VideoResolution = VideoResolution.highest
 ) -> VideoMetadata:
     """It downloads the YouTube video at the given URL to the given dirpath
     
     The filename defaults to the YouTube video's title.
+
+    The caption will be saved in the same folder with the .srt extension.
     """
     if proxies is None:
         proxies = {}
 
     url = vid_or_url
 
-    # TODO: It may install the validators package
-    if not url.startswith("http"):
+    if not validators.url(url):
         url = _URL_youtube.format(url)
 
     youtube = YouTube(
@@ -57,7 +59,7 @@ def download(
     youtube.check_availability()
 
     streams = youtube.streams.filter(file_extension=file_extension)
-    stream  = _choose_stream(streams, video_resolution)
+    stream  = _choose_stream(streams, resolution)
 
     filename = f"{stream.title}.{file_extension}"
     filepath = stream.download(output_dirpath, filename)

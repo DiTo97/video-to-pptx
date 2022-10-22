@@ -5,6 +5,7 @@ requirements:
   - frozendict~=2.3.4
   - pytube~=12.1.0
   - python-pptx~=0.6.21
+  - validators~=0.20.0
 
 scopes:
   pre-commit:
