@@ -38,16 +38,19 @@ def xml_caption_to_srt(xml_caption: str) -> str:
         except KeyError:
             duration = 0.0
 
-        t_start = float(child.attrib["t"])
+        t_start = float(child.attrib["t"])  # millisecs
 
         try:
             t_end = float(root.findall("body/p")[i + 2].attrib["t"])
         except Exception:
             t_end = float(root.findall("body/p")[i].attrib["t"])
-            t_end = t_end + duration
+            t_end = t_end + duration        # millisecs
 
-        start = Caption.float_to_srt_time_format(t_start)
-        end   = Caption.float_to_srt_time_format(t_end)
+        t_start_secs = t_start / 1000
+        t_end_secs   = t_end   / 1000
+
+        start = Caption.float_to_srt_time_format(t_start_secs)
+        end   = Caption.float_to_srt_time_format(t_end_secs)
 
         line = f"{i + 1}\n{start} --> {end}\n{caption}\n"
 
