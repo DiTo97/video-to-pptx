@@ -1,7 +1,7 @@
 import pytest
 
 from video2pttx import ROOT
-from video2pttx.downloader.downloader import download
+from video2pttx.downloader import download
 
 
 _ROOT_stubs = ROOT.parents[1] / "tests" / "stubs"

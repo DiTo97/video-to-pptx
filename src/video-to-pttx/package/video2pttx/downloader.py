@@ -71,7 +71,7 @@ def download(
     lang_code: str = "en",
     resolution: VideoResolution = VideoResolution.highest
 ) -> VideoMetadata:
-    """It downloads the YouTube video at the given URL to the given dirpath
+    """It downloads the YouTube video with the given video Id, or at the given URL, to the given dirpath
     
     The filename defaults to the YouTube video's title.
 
@@ -83,6 +83,7 @@ def download(
     url = vid_or_url
 
     if not validators.url(url):
+        # video Id to URL
         url = _URL_youtube.format(url)
 
     youtube = YouTube(
