@@ -5,8 +5,8 @@ import typing
 import validators
 from pytube import Stream, StreamQuery, YouTube
 
-from video2pttx.video.caption import xml_caption_to_srt
-from video2pttx.video.video import VideoResolution, VideoMetadata
+from video2pptx.video.caption import xml_caption_to_srt
+from video2pptx.video.video import VideoResolution, VideoMetadata
 
 
 _URL_youtube = "http://youtube.com/watch?v={}"

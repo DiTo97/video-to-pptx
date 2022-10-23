@@ -2,7 +2,6 @@ python: 3.8.15
 
 requirements:
   - pip~=22.2.2
-  - frozendict~=2.3.4
   - opencv-python~=4.6.0.66
   - pytube~=12.1.0
   - python-pptx~=0.6.21
