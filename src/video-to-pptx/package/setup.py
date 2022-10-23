@@ -15,8 +15,8 @@ def _find_requirements() -> typing.List[str]:
 
 
 def _find_resources_paths() -> typing.List[str]:
-    """It finds resources paths under 'video2pttx/resources/'"""
-    dirname = "video2pttx"
+    """It finds resources paths under 'video2pptx/resources/'"""
+    dirname = "video2pptx"
     dirpath = _ROOT / dirname / "resources"
 
     return [str(r.relative_to(dirpath)) for r in dirpath.rglob("*")]
@@ -30,10 +30,10 @@ def main():
             "A video-to-PPTX-slides converter whose main goal is to convert "
             "scientific presentations to PPTX slides.",
         "install_requires": _find_requirements(),
-        "name": "video2pttx",
+        "name": "video2pptx",
         "packages": find_packages(),
         "package_data": {
-            "video2pttx": _find_resources_paths(),
+            "video2pptx": _find_resources_paths(),
             "tests": ["stubs/*"]
         },
         "version": "0.1.0",
