@@ -1,10 +1,16 @@
 import pytest
+import typing
 
 from video2pptx import ROOT
-from video2pptx.downloader import download
+from video2pptx.youtube.downloader import YouTubeDownloader
 
 
 _ROOT_stubs = ROOT.parent / "tests" / "stubs"
+
+
+@pytest.fixture
+def downloader():
+    return YouTubeDownloader()
 
 
 def videos_generator():
@@ -16,13 +22,16 @@ def videos_generator():
 
 
 @pytest.mark.parametrize("raw", videos_generator())
-def test_download(raw):
+def test_download(
+    downloader: YouTubeDownloader, 
+    raw: typing.Tuple[str, str]
+):
     samples_dirpath = _ROOT_stubs / "samples"
     samples_dirpath.mkdir(parents=True, exist_ok=True)
 
     vid, extension = raw
 
-    video_metadata = download(
+    video_metadata = downloader.download(
         vid, samples_dirpath, file_extension=extension
     )
 

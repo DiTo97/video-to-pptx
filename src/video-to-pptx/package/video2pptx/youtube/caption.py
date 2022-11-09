@@ -5,15 +5,15 @@ from pytube import Caption
 
 
 def xml_caption_to_srt(xml_caption: str) -> str:
-    """It converts .xml caption tracks to SubRip subtitles (.srt)
+    """It converts YouTube .xml caption tracks to SubRip subtitles (.srt)
     
     Notes
     -----
     [#1386](https://github.com/pytube/pytube/pull/1386)
 
-    This function is a fix for pytube's `xml_caption_to_srt` function, which has stopped
+    This function is a fix for Pytube's `xml_caption_to_srt` function, which has stopped
     working since YouTube changed the format of .xml caption tracks at the end of Q2 2022.
-    It should be fixed with the release of pytube 12.2.0.
+    It should be fixed with the release of Pytube v12.2.0.
     """
     root = ElementTree.fromstring(xml_caption)
 
