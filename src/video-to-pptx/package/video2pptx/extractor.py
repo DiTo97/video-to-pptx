@@ -5,7 +5,7 @@ import numpy as np
 import numpy.typing as npt
 import srt
 
-from video2pptx.video.video import VideoMetadata
+from video2pptx.base.video import VideoMetadata
 
 
 def _extract_frames(filepath: str, frame_rate: int = 30) -> typing.Iterator[npt.NDArray]:
