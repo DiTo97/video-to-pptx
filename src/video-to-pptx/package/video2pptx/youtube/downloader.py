@@ -5,6 +5,7 @@ from dataclasses import dataclass
 
 import validators
 from pytube import Stream, StreamQuery, YouTube
+from slugify import slugify
 
 from video2pptx.base.downloader import Downloader
 from video2pptx.base.video import VideoResolution
@@ -120,7 +121,7 @@ class YouTubeDownloader(Downloader):
         streams = youtube.streams.filter(file_extension=file_extension)
         stream  = self._choose_stream(streams, resolution)
 
-        filename = f"{stream.title}.{file_extension}"
+        filename = f"{slugify(stream.title)}.{file_extension}"
         filepath = stream.download(output_dirpath, filename)
 
         return filepath, youtube
