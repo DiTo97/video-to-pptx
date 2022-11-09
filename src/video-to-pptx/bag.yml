@@ -5,6 +5,7 @@ requirements:
   - opencv-python~=4.6.0.66
   - pytube~=12.1.0
   - python-pptx~=0.6.21
+  - python-slugify~=6.1.2
   - srt~=3.5.2
   - validators~=0.20.0
 
