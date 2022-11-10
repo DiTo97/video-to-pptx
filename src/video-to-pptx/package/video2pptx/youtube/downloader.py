@@ -81,7 +81,7 @@ class YouTubeDownloader(Downloader):
                     caption_str = caption.xml_captions
                     caption_str = xml_caption_to_srt(caption_str)
 
-                caption_filename = f"{data.title}.srt"
+                caption_filename = f"{slugify(data.title)}.srt"
                 caption_filepath = os.path.join(output_dirpath, caption_filename)
 
                 with open(caption_filepath, "wt") as f:
