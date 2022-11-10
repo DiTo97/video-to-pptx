@@ -1,11 +1,13 @@
 import pytest
 import typing
 
+from slugify import slugify
+
 from video2pptx import ROOT
 from video2pptx.youtube.downloader import YouTubeDownloader
 
 
-_ROOT_stubs = ROOT.parent / "tests" / "stubs"
+_ROOT_stubs = ROOT.parents[2] / "tests" / "stubs"
 
 
 @pytest.fixture
@@ -17,8 +19,8 @@ def videos_generator():
     """A generator of YouTube video Ids and extensions"""
     samples = [("HoKDTa5jHvg", "mp4")]
 
-    for vid, extension in samples:
-        yield vid, extension
+    for src, extension in samples:
+        yield src, extension
 
 
 @pytest.mark.parametrize("raw", videos_generator())
@@ -29,15 +31,15 @@ def test_download(
     samples_dirpath = _ROOT_stubs / "samples"
     samples_dirpath.mkdir(parents=True, exist_ok=True)
 
-    vid, extension = raw
+    src, extension = raw
 
     video_metadata = downloader.download(
-        vid, samples_dirpath, file_extension=extension
+        src, samples_dirpath, file_extension=extension
     )
 
     title = video_metadata.title
 
-    filename = f"{title}.{extension}"
+    filename = f"{slugify(title)}.{extension}"
     filepath = samples_dirpath / filename
 
     assert video_metadata.filepath == str(filepath)
@@ -47,7 +49,7 @@ def test_download(
 
     assert not filepath.exists()
 
-    caption_filename = f"{title}.srt"
+    caption_filename = f"{slugify(title)}.srt"
     caption_filepath = samples_dirpath / caption_filename
 
     if video_metadata.caption_filepath is not None:
