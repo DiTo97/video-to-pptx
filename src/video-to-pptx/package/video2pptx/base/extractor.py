@@ -18,7 +18,7 @@ def extract_frames_from_capture(capture: cv2.VideoCapture) -> typing.Iterator[np
         status, frame = capture.read()
 
         if not status:
-            if n_read_frames != n_frames - 1:
+            if n_read_frames != n_frames:
                 raise ValueError(
                     "The capture has stopped before reading all frames"
                 )
