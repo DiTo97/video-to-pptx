@@ -22,7 +22,7 @@ class Downloader(ABC):
 
     @abstractmethod
     def _download_caption(
-        self, video: Any, output_dirpath: str, lang_code: str = "en"
+        self, data: Any, output_dirpath: str, lang_code: str = "en"
         ) -> typing.Optional[str]:
         """It downloads the caption of a video in the given language to the given dirpath
         
@@ -58,12 +58,12 @@ class Downloader(ABC):
     @abstractmethod
     def download(
         self, 
-        url: str, 
+        src: str, 
         output_dirpath: str, 
         lang_code: str = "en", 
         filename: typing.Optional[str] = None
     ) -> VideoMetadata:
-        """It downloads the video at the given URL and its caption to the given dirpath
+        """It downloads the video at the given src and its caption to the given dirpath
 
         Returns
         -------
