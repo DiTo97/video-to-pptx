@@ -96,7 +96,7 @@ class Extractor:
         frames_iter = extract_frames_from_capture(capture)
 
         sampled_frames_iter = sample_frames_by_frame_rate(
-            frames_iter, frame_rate, capture_frame_rate
+            frames_iter, capture_frame_rate, frame_rate
         )
 
         for frame in sampled_frames_iter:
@@ -122,7 +122,7 @@ class Extractor:
         typing.Iterator[npt.NDArray], 
         typing.Optional[typing.Iterator[srt.Subtitle]]
     ]:
-        """It extracts frames and subtitles from a video metadata at the given frame rate
+        """It extracts frames and subtitles from a video metadata
         
         Returns
         -------
