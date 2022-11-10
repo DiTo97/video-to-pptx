@@ -16,6 +16,32 @@ from video2pptx.youtube.video import YouTubeVideoMetadata
 _URL_youtube = "https://youtube.com/watch?v="
 
 
+def _choose_stream(streams: StreamQuery, resolution: VideoResolution) -> Stream:
+    """It chooses a stream among many given the desired resolution"""
+    if resolution == VideoResolution.lowest:
+        return streams.get_lowest_resolution()
+
+    if resolution == VideoResolution.highest:
+        return streams.get_highest_resolution()
+
+    if resolution != VideoResolution.random:
+        stream = None
+
+        while stream is None and resolution is not None:
+            stream = streams.get_by_resolution(str(resolution))
+
+            # It traverses the resolution hierarchy
+            resolution = resolution.prev
+
+        if stream is not None:
+            return stream
+
+    n_streams = streams.count
+    idx = random.randint(0, n_streams - 1)
+
+    return streams.all()[idx]
+
+
 @dataclass
 class YouTubeDownloader(Downloader):
     """A class that downloads YouTube videos and captions locally
@@ -26,32 +52,6 @@ class YouTubeDownloader(Downloader):
     """
     use_oauth: bool = False, 
     allow_oauth_cache: bool = True
-
-    @classmethod
-    def _choose_stream(cls, streams: StreamQuery, resolution: VideoResolution) -> Stream:
-        """It chooses a stream among many given the desired resolution"""
-        if resolution == VideoResolution.lowest:
-            return streams.get_lowest_resolution()
-
-        if resolution == VideoResolution.highest:
-            return streams.get_highest_resolution()
-
-        if resolution != VideoResolution.random:
-            stream = None
-
-            while stream is None and resolution is not None:
-                stream = streams.get_by_resolution(str(resolution))
-
-                # It traverses the resolution hierarchy
-                resolution = resolution.prev
-
-            if stream is not None:
-                return stream
-
-        n_streams = streams.count
-        idx = random.randint(0, n_streams - 1)
-
-        return streams.all()[idx]
     
     def _download_caption(
         self, data: YouTube, output_dirpath: str, lang_code: str = "en"
@@ -119,7 +119,7 @@ class YouTubeDownloader(Downloader):
         data.check_availability()
 
         streams = data.streams.filter(file_extension=file_extension)
-        stream  = self._choose_stream(streams, resolution)
+        stream  = _choose_stream(streams, resolution)
 
         filename = f"{slugify(stream.title)}.{file_extension}"
         filepath = stream.download(output_dirpath, filename)
