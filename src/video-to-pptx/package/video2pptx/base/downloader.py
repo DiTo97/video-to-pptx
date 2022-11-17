@@ -39,11 +39,13 @@ class BaseDownloader(ABC):
     @abstractmethod
     def _download_video(
         self, 
-        url: str, 
+        src: Any, 
         output_dirpath: str, 
-        filename: typing.Optional[str] = None
-    ) -> str:
-        """It downloads the video at the given URL to the given dirpath
+        filename: typing.Optional[str] = None,
+        *args,
+        **kwargs
+    ) -> typing.Tuple[str, Any]:
+        """It downloads the video at the given src to the given dirpath
 
         Returns
         -------
@@ -58,10 +60,12 @@ class BaseDownloader(ABC):
     @abstractmethod
     def download(
         self, 
-        src: str, 
+        src: Any, 
         output_dirpath: str, 
         lang_code: str = "en", 
-        filename: typing.Optional[str] = None
+        filename: typing.Optional[str] = None,
+        *args,
+        **kwargs
     ) -> BaseVideoMetadata:
         """It downloads the video at the given src and its caption to the given dirpath
 
