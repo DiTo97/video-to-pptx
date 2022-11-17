@@ -5,7 +5,7 @@ import cv2
 import numpy.typing as npt
 import srt
 
-from video2pptx.base.video import VideoMetadata
+from video2pptx.base.video import BaseVideoMetadata
 from video2pptx.utils.sampling import sample_linspace
 
 
@@ -69,7 +69,7 @@ def sample_frames_by_frame_rate(
 
 
 @dataclass
-class Extractor:
+class BaseExtractor:
     """A base class that extracts frames from a video and subtitles from a caption
     
     The extraction is controlled by a given frame rate.
@@ -117,7 +117,7 @@ class Extractor:
         return srt.parse(srt_data)
 
     def extract(
-        self, metadata: VideoMetadata
+        self, metadata: BaseVideoMetadata
     ) -> typing.Tuple[
         typing.Iterator[npt.NDArray], 
         typing.Optional[typing.Iterator[srt.Subtitle]]
@@ -132,9 +132,10 @@ class Extractor:
         caption_filepath = metadata.caption_filepath
 
         frames = self._extract_frames(filepath)
-        subtitles = None
-
-        if caption_filepath is not None:
-            subtitles = self._extract_subtitles(caption_filepath)
+        
+        subtitles = (
+            None if caption_filepath is None 
+            else self._extract_subtitles(caption_filepath)
+        )
 
         return frames, subtitles
