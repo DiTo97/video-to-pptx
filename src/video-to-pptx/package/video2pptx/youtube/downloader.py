@@ -92,14 +92,15 @@ class YouTubeDownloader(BaseDownloader):
         return caption_filepath
 
     def _download_video(
-        self, 
-        url: str, 
+        self,
+        src: str, 
         output_dirpath: str, 
         filename: typing.Optional[str] = None,
         file_extension: str = ".mp4",
         resolution: VideoResolution = VideoResolution.highest
     ) -> typing.Tuple[str, YouTube]:
-        """It downloads the YouTube video at the given URL to the given dirpath
+        """It downloads the YouTube video at the given src 
+        (either video Id or URL) to the given dirpath
 
         Returns
         -------
@@ -107,8 +108,18 @@ class YouTubeDownloader(BaseDownloader):
 
         Notes
         -----
+        - If the src is a video Id it will be converted to URL beforehand
         - The filename defaults to the slugified title of the video.
         """
+        url = src
+
+        if not validators.url(src):
+            # video Id to URL
+            url = _URL_youtube + src
+
+        if not url.startswith(_URL_youtube):
+            raise ValueError("The URL does not point to a valid YouTube video")
+
         data = YouTube(
             url,
             proxies=self.proxies,
@@ -138,8 +149,8 @@ class YouTubeDownloader(BaseDownloader):
         file_extension: str = ".mp4",
         resolution: VideoResolution = VideoResolution.highest
     ) -> YouTubeVideoMetadata:
-        """It downloads the YouTube video at the given src (either video Id
-        or URL), and its caption to the given dirpath
+        """It downloads the YouTube video at the given src
+        (either video Id or URL), and its caption to the given dirpath
 
         Returns
         -------
@@ -150,17 +161,8 @@ class YouTubeDownloader(BaseDownloader):
         - The network call may use proxy servers to hide the IP address.
         - The network call may be OAuth cached
         """
-        url = src
-
-        if not validators.url(src):
-            # video Id to URL
-            url = _URL_youtube + src
-
-        if not url.startswith(_URL_youtube):
-            raise ValueError("The URL does not point to a valid YouTube video")
-
         filepath, data = self._download_video(
-            url, output_dirpath, filename, file_extension, resolution
+            src, output_dirpath, filename, file_extension, resolution
         )
 
         caption_filepath = self._download_caption(data, output_dirpath, lang_code)
