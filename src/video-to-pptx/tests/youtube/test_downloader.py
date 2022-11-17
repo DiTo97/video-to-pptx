@@ -1,13 +1,10 @@
-import pytest
+import pathlib
 import typing
 
+import pytest
 from slugify import slugify
 
-from video2pptx import ROOT
 from video2pptx.youtube.downloader import YouTubeDownloader
-
-
-_ROOT_stubs = ROOT.parents[2] / "tests" / "stubs"
 
 
 @pytest.fixture
@@ -23,15 +20,22 @@ def videos_generator():
         yield src, extension
 
 
-@pytest.mark.parametrize("raw", videos_generator())
+@pytest.mark.parametrize("sample", videos_generator())
 def test_download(
+    ROOT_tests: pathlib.Path,
     downloader: YouTubeDownloader, 
-    raw: typing.Tuple[str, str]
+    sample: typing.Tuple[str, str]
 ):
-    samples_dirpath = _ROOT_stubs / "samples"
+    """It tests that YouTube videos (and captions, if available) are downloaded correctly
+    
+    Notes
+    -----
+    - All downloaded samples are cleaned up after the execution
+    """
+    samples_dirpath = ROOT_tests / "stubs" / "samples"
     samples_dirpath.mkdir(parents=True, exist_ok=True)
 
-    src, extension = raw
+    src, extension = sample
 
     video_metadata = downloader.download(
         src, samples_dirpath, file_extension=extension
