@@ -60,8 +60,8 @@ class VideoResolution(str, enum.Enum):
 
 
 @dataclass
-class VideoMetadata:
-    """A class that wraps video metadata"""
+class BaseVideoMetadata:
+    """A base class that wraps video metadata"""
     filepath: str
     caption_filepath: typing.Optional[str]
     duration: timedelta

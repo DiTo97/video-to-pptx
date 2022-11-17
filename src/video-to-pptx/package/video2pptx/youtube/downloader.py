@@ -7,7 +7,7 @@ import validators
 from pytube import Stream, StreamQuery, YouTube
 from slugify import slugify
 
-from video2pptx.base.downloader import Downloader
+from video2pptx.base.downloader import BaseDownloader
 from video2pptx.base.video import VideoResolution
 from video2pptx.youtube.caption import xml_caption_to_srt
 from video2pptx.youtube.video import YouTubeVideoMetadata
@@ -43,7 +43,7 @@ def _choose_stream(streams: StreamQuery, resolution: VideoResolution) -> Stream:
 
 
 @dataclass
-class YouTubeDownloader(Downloader):
+class YouTubeDownloader(BaseDownloader):
     """A class that downloads YouTube videos and captions locally
 
     Notes

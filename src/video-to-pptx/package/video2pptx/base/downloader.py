@@ -3,11 +3,11 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any
 
-from video2pptx.base.video import VideoMetadata
+from video2pptx.base.video import BaseVideoMetadata
 
 
 @dataclass
-class Downloader(ABC):
+class BaseDownloader(ABC):
     """An abstract class that downloads videos and captions locally
 
     Notes
@@ -62,7 +62,7 @@ class Downloader(ABC):
         output_dirpath: str, 
         lang_code: str = "en", 
         filename: typing.Optional[str] = None
-    ) -> VideoMetadata:
+    ) -> BaseVideoMetadata:
         """It downloads the video at the given src and its caption to the given dirpath
 
         Returns
