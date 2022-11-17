@@ -50,7 +50,7 @@ class YouTubeDownloader(BaseDownloader):
     -----
     The files are available only after being downloaded in their entirety.
     """
-    use_oauth: bool = False, 
+    use_oauth: bool = False
     allow_oauth_cache: bool = True
     
     def _download_caption(
@@ -118,6 +118,7 @@ class YouTubeDownloader(BaseDownloader):
 
         data.check_availability()
 
+        # It extracts the MIME subtype
         subtype = file_extension.replace(".", "")
 
         streams = data.streams.filter(subtype=subtype)
