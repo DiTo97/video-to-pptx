@@ -22,7 +22,7 @@ def _find_resources_paths() -> typing.List[str]:
     return [str(r.relative_to(dirpath)) for r in dirpath.rglob("*")]
 
 
-def main():
+def main() -> None:
     setup(**{
         "author": "Federico Minutoli",
         "author_email": "fede97.minutoli@gmail.com",

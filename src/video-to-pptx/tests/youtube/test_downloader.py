@@ -8,11 +8,11 @@ from video2pptx.youtube.downloader import YouTubeDownloader
 
 
 @pytest.fixture
-def downloader():
+def downloader() -> YouTubeDownloader:
     return YouTubeDownloader()
 
 
-def videos_generator():
+def videos_generator() -> typing.Iterator[typing.Tuple[str, str]]:
     """A generator of YouTube video Ids and extensions"""
     samples = [("HoKDTa5jHvg", ".mp4")]
 
@@ -25,7 +25,7 @@ def test_download(
     ROOT_tests: pathlib.Path,
     downloader: YouTubeDownloader, 
     sample: typing.Tuple[str, str]
-):
+) -> None:
     """It tests that YouTube videos (and captions, if available) are downloaded correctly
     
     Notes
