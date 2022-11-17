@@ -36,8 +36,8 @@ def _choose_stream(streams: StreamQuery, resolution: VideoResolution) -> Stream:
         if stream is not None:
             return stream
 
-    n_streams = streams.count
-    idx = random.randint(0, n_streams - 1)
+    num_streams = streams.count
+    idx = random.randint(0, num_streams - 1)
 
     return streams.all()[idx]
 
@@ -96,7 +96,7 @@ class YouTubeDownloader(Downloader):
         url: str, 
         output_dirpath: str, 
         filename: typing.Optional[str] = None,
-        file_extension: str = "mp4",
+        file_extension: str = ".mp4",
         resolution: VideoResolution = VideoResolution.highest
     ) -> typing.Tuple[str, YouTube]:
         """It downloads the YouTube video at the given URL to the given dirpath
@@ -118,10 +118,12 @@ class YouTubeDownloader(Downloader):
 
         data.check_availability()
 
-        streams = data.streams.filter(file_extension=file_extension)
+        subtype = file_extension.replace(".", "")
+
+        streams = data.streams.filter(subtype=subtype)
         stream  = _choose_stream(streams, resolution)
 
-        filename = f"{slugify(stream.title)}.{file_extension}"
+        filename = f"{slugify(stream.title)}{file_extension}"
         filepath = stream.download(output_dirpath, filename)
 
         return filepath, data
@@ -132,7 +134,7 @@ class YouTubeDownloader(Downloader):
         output_dirpath: str, 
         lang_code: str = "en",
         filename: typing.Optional[str] = None,
-        file_extension: str = "mp4",
+        file_extension: str = ".mp4",
         resolution: VideoResolution = VideoResolution.highest
     ) -> YouTubeVideoMetadata:
         """It downloads the YouTube video at the given src (either video Id
