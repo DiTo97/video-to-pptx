@@ -36,8 +36,8 @@ def _choose_stream(streams: StreamQuery, resolution: VideoResolution) -> Stream:
         if stream is not None:
             return stream
 
-    n_streams = streams.count
-    idx = random.randint(0, n_streams - 1)
+    num_streams = streams.count
+    idx = random.randint(0, num_streams - 1)
 
     return streams.all()[idx]
 

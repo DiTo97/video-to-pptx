@@ -53,12 +53,12 @@ def filter_motionless_frames(
     A generator of compressed frames and the number of corresponding frames
     """
     frame_tm1 = None
-    n_corresponding = 0
+    num_corresponding = 0
     
     for frame in frames_iter:
         if frame_tm1 is None:
             frame_tm1 = frame
-            n_corresponding = 1
+            num_corresponding = 1
 
             continue
 
@@ -70,13 +70,13 @@ def filter_motionless_frames(
             threshold, 
             min_contour_area
         ):
-            yield frame_tm1, n_corresponding
+            yield frame_tm1, num_corresponding
 
             frame_tm1 = frame
-            n_corresponding = 1
+            num_corresponding = 1
 
             continue
         
-        n_corresponding += 1
+        num_corresponding += 1
 
-    yield frame_tm1, n_corresponding
+    yield frame_tm1, num_corresponding

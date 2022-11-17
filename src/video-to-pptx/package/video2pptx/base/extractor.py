@@ -11,14 +11,14 @@ from video2pptx.utils.sampling import sample_linspace
 
 def extract_frames_from_capture(capture: cv2.VideoCapture) -> typing.Iterator[npt.NDArray]:
     """It extracts frames from an OpenCV video capture"""
-    n_frames = capture.get(cv2.CAP_PROP_FRAME_COUNT)
-    n_read_frames = 0
+    num_frames = capture.get(cv2.CAP_PROP_FRAME_COUNT)
+    num_read_frames = 0
 
     while True:
         status, frame = capture.read()
 
         if not status:
-            if n_read_frames != n_frames:
+            if num_read_frames != num_frames:
                 raise ValueError(
                     "The capture has stopped before reading all frames"
                 )
@@ -26,7 +26,7 @@ def extract_frames_from_capture(capture: cv2.VideoCapture) -> typing.Iterator[np
             break
 
         yield frame
-        n_read_frames += 1
+        num_read_frames += 1
 
 
 def sample_frames_by_frame_rate(
