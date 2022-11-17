@@ -159,24 +159,24 @@ class YouTubeDownloader(BaseDownloader):
         if not url.startswith(_URL_youtube):
             raise ValueError("The URL does not point to a valid YouTube video")
 
-        filepath, youtube = self._download_video(
+        filepath, data = self._download_video(
             url, output_dirpath, filename, file_extension, resolution
         )
 
-        caption_filepath = self._download_caption(youtube, output_dirpath, lang_code)
+        caption_filepath = self._download_caption(data, output_dirpath, lang_code)
 
-        publish_datetime = youtube.publish_date
-        duration = float(youtube.length)
+        publish_datetime = data.publish_date
+        duration = float(data.length)
 
         return YouTubeVideoMetadata(
             filepath, 
             caption_filepath, 
             duration, 
-            youtube.author, 
-            youtube.description, 
-            youtube.keywords, 
+            data.author, 
+            data.description, 
+            data.keywords, 
             publish_datetime, 
-            youtube.rating, 
-            youtube.title, 
-            youtube.views
+            data.rating, 
+            data.title, 
+            data.views
         )
