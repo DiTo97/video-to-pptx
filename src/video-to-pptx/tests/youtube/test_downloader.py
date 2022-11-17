@@ -17,7 +17,7 @@ def downloader():
 
 def videos_generator():
     """A generator of YouTube video Ids and extensions"""
-    samples = [("HoKDTa5jHvg", "mp4")]
+    samples = [("HoKDTa5jHvg", ".mp4")]
 
     for src, extension in samples:
         yield src, extension
@@ -39,7 +39,7 @@ def test_download(
 
     title = video_metadata.title
 
-    filename = f"{slugify(title)}.{extension}"
+    filename = f"{slugify(title)}{extension}"
     filepath = samples_dirpath / filename
 
     assert video_metadata.filepath == str(filepath)
