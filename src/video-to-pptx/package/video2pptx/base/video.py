@@ -7,15 +7,16 @@ from functools import lru_cache
 
 class VideoResolution(str, enum.Enum):
     """An enum class that implements a video resolution hierarchy"""
-    lowest  = "lowest"
-    random  = "random"
-    p144    = "144p"
-    p240    = "240p"
-    p360    = "360p"
-    p480    = "480p"
-    p720    = "720p"
-    p1080   = "1080p"
-    p2160   = "2160p"
+
+    lowest = "lowest"
+    random = "random"
+    p144 = "144p"
+    p240 = "240p"
+    p360 = "360p"
+    p480 = "480p"
+    p720 = "720p"
+    p1080 = "1080p"
+    p2160 = "2160p"
     highest = "highest"
 
     def __str__(self) -> str:
@@ -25,13 +26,13 @@ class VideoResolution(str, enum.Enum):
     @lru_cache(maxsize=1)
     def hierarchy() -> typing.List["VideoResolution"]:
         return [
-            VideoResolution.p144, 
-            VideoResolution.p240, 
-            VideoResolution.p360, 
-            VideoResolution.p480, 
-            VideoResolution.p720, 
-            VideoResolution.p1080, 
-            VideoResolution.p2160
+            VideoResolution.p144,
+            VideoResolution.p240,
+            VideoResolution.p360,
+            VideoResolution.p480,
+            VideoResolution.p720,
+            VideoResolution.p1080,
+            VideoResolution.p2160,
         ]
 
     @property
@@ -62,6 +63,7 @@ class VideoResolution(str, enum.Enum):
 @dataclass
 class BaseVideoMetadata:
     """A base class that wraps video metadata"""
+
     filepath: str
     caption_filepath: typing.Optional[str]
     duration: timedelta

@@ -26,4 +26,8 @@ class BaseSynchronizer:
         -------
         A generator of (the contents of) PPTX slides
         """
-        pass
+        if subtitles_iter is not None:
+            pass
+        else:
+            for frame in frames_iter:
+                yield BaseSlide(frame, None)

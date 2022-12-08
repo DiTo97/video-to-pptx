@@ -131,11 +131,11 @@ class BaseExtractor:
         filepath = metadata.filepath
         caption_filepath = metadata.caption_filepath
 
-        frames = self._extract_frames(filepath)
+        frames_iter = self._extract_frames(filepath)
         
-        subtitles = (
+        subtitles_iter = (
             None if caption_filepath is None 
             else self._extract_subtitles(caption_filepath)
         )
 
-        return frames, subtitles
+        return frames_iter, subtitles_iter

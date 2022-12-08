@@ -14,6 +14,7 @@ class BaseDownloader(ABC):
     -----
     The files are available only after being downloaded in their entirety.
     """
+
     proxies: typing.Dict[str, str] = None
 
     def __post_init__(self) -> None:
@@ -23,9 +24,9 @@ class BaseDownloader(ABC):
     @abstractmethod
     def _download_caption(
         self, data: Any, output_dirpath: str, lang_code: str = "en"
-        ) -> typing.Optional[str]:
+    ) -> typing.Optional[str]:
         """It downloads the caption of a video in the given language to the given dirpath
-        
+
         Returns
         -------
         The filepath to the saved caption or None
@@ -34,13 +35,12 @@ class BaseDownloader(ABC):
         -----
         - The filename is the same as the video's with .srt extension.
         """
-        pass
 
     @abstractmethod
     def _download_video(
-        self, 
-        src: Any, 
-        output_dirpath: str, 
+        self,
+        src: Any,
+        output_dirpath: str,
         filename: typing.Optional[str] = None,
         *args,
         **kwargs
@@ -59,10 +59,10 @@ class BaseDownloader(ABC):
 
     @abstractmethod
     def download(
-        self, 
-        src: Any, 
-        output_dirpath: str, 
-        lang_code: str = "en", 
+        self,
+        src: Any,
+        output_dirpath: str,
+        lang_code: str = "en",
         filename: typing.Optional[str] = None,
         *args,
         **kwargs
