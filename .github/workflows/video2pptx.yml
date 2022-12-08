@@ -21,7 +21,7 @@ jobs:
       - name: Python - setup
         uses: actions/setup-python@v4
         with:
-          python-version: "3.8.15"
+          python-version: '3.8.15'
 
       - name: Python - install dependencies
         run: pip install --upgrade pip requests travel
@@ -61,7 +61,7 @@ jobs:
     strategy:
       matrix:
         os: [ macos-latest, ubuntu-latest, windows-latest ]
-        python: [ "3.8", "3.9", "3.10" ]
+        python: [ '3.8', '3.9', '3.10' ]
 
     runs-on: ${{ matrix.os }}
 
@@ -92,7 +92,7 @@ jobs:
           pytest tests
           
   push:
-    if: ${{ github.base_ref == "master" && ( startsWith(github.head_ref, "release/major/") || startsWith(github.head_ref, "release/minor/") || startsWith(github.head_ref, "release/patch/") ) }}
+    if: ${{ github.base_ref == 'master' && ( startsWith(github.head_ref, 'release/major/') || startsWith(github.head_ref, 'release/minor/') || startsWith(github.head_ref, 'release/patch/') ) }}
     needs: [ test, pack ]
     runs-on: ubuntu-latest
 
@@ -100,22 +100,22 @@ jobs:
       - name: Python - setup
         uses: actions/setup-python@v4
         with:
-          python-version: "3.8.15"
+          python-version: '3.8.15'
 
       - name: Git - checkout from PR
         uses: actions/checkout@v3
-        if: github.event_name == "pull_request"
+        if: github.event_name == 'pull_request'
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Git - checkout from branch
         uses: actions/checkout@v3
-        if: github.event_name != "pull_request"
+        if: github.event_name != 'pull_request'
 
       - name: Git - config
         run: |
           git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@users.noreply.github.com"
+          git config --global user.email actions@users.noreply.github.com
       
       - name: Git - tag
         run: |
@@ -131,7 +131,7 @@ jobs:
       - name: Python - setup
         uses: actions/setup-python@v4
         with:
-          python-version: "3.8.15"
+          python-version: '3.8.15'
 
       - name: Git - download dist
         uses: actions/download-artifact@v3
