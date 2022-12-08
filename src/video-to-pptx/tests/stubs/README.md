@@ -1,1 +1,3 @@
-A folder of stubs, e.g. fake responses/JSON for data or models.
+# Stubs
+
+A folder of stubs, e.g. fake responses or JSON, for data or models.
