@@ -51,8 +51,7 @@ def sample_frames_by_frame_rate(
                     frames_in_sec, frame_rate, desired_frame_rate
                 )
 
-            for frame in frames_in_sec:
-                yield frame
+            yield from frames_in_sec
 
             frames_in_sec = []
 
@@ -64,8 +63,7 @@ def sample_frames_by_frame_rate(
                 frames_in_sec, frame_rate, desired_frame_rate
             )
 
-        for frame in frames_in_sec:
-            yield frame
+        yield from frames_in_sec
 
 
 @dataclass
@@ -99,8 +97,7 @@ class BaseExtractor:
             frames_iter, capture_frame_rate, frame_rate
         )
 
-        for frame in sampled_frames_iter:
-            yield frame
+        yield from sampled_frames_iter
 
         capture.release()
 

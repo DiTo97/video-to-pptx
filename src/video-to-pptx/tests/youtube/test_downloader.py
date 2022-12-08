@@ -16,8 +16,7 @@ def videos_generator() -> typing.Iterator[typing.Tuple[str, str]]:
     """A generator of YouTube video Ids and extensions"""
     samples = [("HoKDTa5jHvg", ".mp4")]
 
-    for src, extension in samples:
-        yield src, extension
+    yield from samples
 
 
 @pytest.mark.parametrize("sample", videos_generator())
