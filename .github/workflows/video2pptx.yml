@@ -12,7 +12,7 @@ defaults:
 
 env:
   bag_dir: src/${{ github.event.repository.name }}
-  py_version: $( cat src/bag.yml )
+  py_version: '3.8.15'
 
 jobs:
   pack:
