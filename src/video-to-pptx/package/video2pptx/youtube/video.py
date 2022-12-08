@@ -8,6 +8,7 @@ from video2pptx.base.video import BaseVideoMetadata
 @dataclass
 class YouTubeVideoMetadata(BaseVideoMetadata):
     """A class that wraps YouTube video metadata"""
+
     author: str
     description: str
     keywords: typing.List[str]
