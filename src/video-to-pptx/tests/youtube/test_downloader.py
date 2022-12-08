@@ -7,8 +7,8 @@ from slugify import slugify
 from video2pptx.youtube.downloader import YouTubeDownloader
 
 
-@pytest.fixture
-def downloader() -> YouTubeDownloader:
+@pytest.fixture(name="downloader")
+def fixture_downloader() -> YouTubeDownloader:
     return YouTubeDownloader()
 
 
