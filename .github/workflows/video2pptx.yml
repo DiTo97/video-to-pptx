@@ -12,6 +12,7 @@ defaults:
 
 env:
   bag_dir: src/${{ github.event.repository.name }}
+  py_version: $( cat src/bag.yml )
 
 jobs:
   pack:
@@ -21,7 +22,7 @@ jobs:
       - name: Python - setup
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8.15'
+          python-version: ${{ env.py_version }}
 
       - name: Python - install dependencies
         run: pip install --upgrade pip requests travel
@@ -31,13 +32,13 @@ jobs:
 
       - name: Git - next tag
         id: git-next-tag
-        run: echo "::set-output name=next::$( python devops/workflows/git/tag.py ${{ github.repository }} ${{ github.head_ref }} )"
+        run: echo "next=$( python devops/workflows/git/tag.py ${{ github.repository }} ${{ github.head_ref }} )" >> $GITHUB_OUTPUT
 
       - name: Git - replace tag
         run: python devops/workflows/commons/replace.py ${{ env.bag_dir }}/package/setup.py version=.+, version=\"${{ steps.git-next-tag.outputs.next }}\",
 
       - name: Travel - config
-        run: travel config add python 3.8.15 /usr/bin/python3.8
+        run: travel config add python ${{ env.py_version }} /usr/bin/python3
 
       - name: Travel - pack
         run: |
@@ -100,7 +101,7 @@ jobs:
       - name: Python - setup
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8.15'
+          python-version: ${{ env.py_version }}
 
       - name: Git - checkout from PR
         uses: actions/checkout@v3
@@ -131,7 +132,7 @@ jobs:
       - name: Python - setup
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8.15'
+          python-version: ${{ env.py_version }}
 
       - name: Git - download dist
         uses: actions/download-artifact@v3
