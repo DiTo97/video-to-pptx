@@ -20,14 +20,15 @@ def videos_generator() -> typing.Iterator[typing.Tuple[str, str]]:
         yield src, extension
 
 
+@pytest.mark.unit
 @pytest.mark.parametrize("sample", videos_generator())
 def test_download(
     ROOT_tests: pathlib.Path,
-    downloader: YouTubeDownloader, 
-    sample: typing.Tuple[str, str]
+    downloader: YouTubeDownloader,
+    sample: typing.Tuple[str, str],
 ) -> None:
     """It tests that YouTube videos (and captions, if available) are downloaded correctly
-    
+
     Notes
     -----
     - All downloaded samples are cleaned up after the execution
@@ -37,9 +38,7 @@ def test_download(
 
     src, extension = sample
 
-    video_metadata = downloader.download(
-        src, samples_dirpath, file_extension=extension
-    )
+    video_metadata = downloader.download(src, samples_dirpath, file_extension=extension)
 
     title = video_metadata.title
 
