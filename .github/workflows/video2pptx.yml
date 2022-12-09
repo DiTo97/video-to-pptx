@@ -90,7 +90,7 @@ jobs:
       - name: Git - checkout
         uses: actions/checkout@v3
 
-      - name: Python - test
+      - name: Python - test unit
         run: |
           cd ${{ env.bag_dir }}
           pytest tests -m "unit"
@@ -127,7 +127,7 @@ jobs:
       - name: Git - checkout
         uses: actions/checkout@v3
 
-      - name: Python - test
+      - name: Python - test integration
         run: |
           cd ${{ env.bag_dir }}
           pytest tests -m "integration"
@@ -163,7 +163,7 @@ jobs:
       - name: Git - checkout
         uses: actions/checkout@v3
 
-      - name: Python - test
+      - name: Python - test e2e
         run: |
           cd ${{ env.bag_dir }}
           pytest tests -m "e2e"
