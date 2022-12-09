@@ -6,7 +6,7 @@ from pytube import Caption
 
 def xml_caption_to_srt(xml_caption: str) -> str:
     """It converts YouTube .xml caption tracks to SubRip subtitles (.srt)
-    
+
     Notes
     -----
     [#1386](https://github.com/pytube/pytube/pull/1386)
@@ -44,13 +44,13 @@ def xml_caption_to_srt(xml_caption: str) -> str:
             t_end = float(root.findall("body/p")[idx + 2].attrib["t"])
         except Exception:
             t_end = float(root.findall("body/p")[idx].attrib["t"])
-            t_end = t_end + duration        # millisecs
+            t_end = t_end + duration  # millisecs
 
         t_start_secs = t_start / 1000
-        t_end_secs   = t_end   / 1000
+        t_end_secs = t_end / 1000
 
         start = Caption.float_to_srt_time_format(t_start_secs)
-        end   = Caption.float_to_srt_time_format(t_end_secs)
+        end = Caption.float_to_srt_time_format(t_end_secs)
 
         line = f"{idx + 1}\n{start} --> {end}\n{caption}\n"
 

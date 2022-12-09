@@ -7,8 +7,8 @@ from slugify import slugify
 from video2pptx.youtube.downloader import YouTubeDownloader
 
 
-@pytest.fixture
-def downloader() -> YouTubeDownloader:
+@pytest.fixture(name="downloader")
+def fixture_downloader() -> YouTubeDownloader:
     return YouTubeDownloader()
 
 
@@ -16,8 +16,7 @@ def videos_generator() -> typing.Iterator[typing.Tuple[str, str]]:
     """A generator of YouTube video Ids and extensions"""
     samples = [("HoKDTa5jHvg", ".mp4")]
 
-    for src, extension in samples:
-        yield src, extension
+    yield from samples
 
 
 @pytest.mark.unit
