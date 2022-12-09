@@ -39,6 +39,7 @@ jobs:
       - name: Git - replace tag
         run: python devops/workflows/commons/replace.py ${{ env.bag_dir }}/package/setup.py version=.+, version=\"${{ steps.git-next-tag.outputs.next }}\",
 
+        # TODO: src/bag.yml cross checking
       - name: Travel - config
         run: travel config add python ${{ env.py_version }} /usr/bin/python3
 
@@ -100,7 +101,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+        os: [ ubuntu-latest ]
         python: [ '3.8', '3.9', '3.10' ]
 
     runs-on: ${{ matrix.os }}
@@ -136,7 +137,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+        os: [ ubuntu-latest ]
         python: [ '3.8', '3.9', '3.10' ]
 
     runs-on: ${{ matrix.os }}
