@@ -31,7 +31,7 @@ jobs:
       - name: Git - checkout
         uses: actions/checkout@v3
 
-        # TODO: tag.py failures into 0.0.0
+        # TODO: tag.py failures to version 0.0.0
       - id: git-next-tag
         name: Git - next tag
         run: echo "next=$( python devops/workflows/git/tag.py ${{ github.repository }} ${{ github.head_ref }} )" >> $GITHUB_OUTPUT
