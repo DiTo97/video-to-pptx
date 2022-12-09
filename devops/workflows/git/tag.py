@@ -70,7 +70,9 @@ def parse_args() -> typing.Dict[str, Any]:
 
 def parse_type(release_branch: str) -> Type:
     for type_ in Type:
-        if f"/{type_}/" in release_branch:
+        pattern = f"/{type_}/"
+
+        if pattern in release_branch:
             return type_
 
     raise ValueError(
