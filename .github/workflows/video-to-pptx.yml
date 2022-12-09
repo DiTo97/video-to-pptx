@@ -1,4 +1,4 @@
-name: Video2pptx
+name: Video-to-pptx
 
 on:
   pull_request:
