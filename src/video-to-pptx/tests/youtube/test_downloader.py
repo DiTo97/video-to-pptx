@@ -19,6 +19,7 @@ def videos_generator() -> typing.Iterator[typing.Tuple[str, str]]:
     yield from samples
 
 
+@pytest.mark.unit
 @pytest.mark.parametrize("sample", videos_generator())
 def test_download(
     ROOT_tests: pathlib.Path,
