@@ -19,8 +19,8 @@ def main() -> None:
     setup(
         author="Federico Minutoli",
         author_email="fede97.minutoli@gmail.com",
-        description="A video-to-PPTX-slides converter whose main goal is "
-        "to convert scientific presentations to PPTX slides.",
+        description="A video-to-PPTX converter whose main goal is to convert "
+        "scientific videos to PPTX presentations.",
         include_package_data=True,
         install_requires=_find_requirements(),
         name="video2pptx",
