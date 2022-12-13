@@ -1,4 +1,5 @@
 import enum
+import pathlib
 import typing
 from dataclasses import dataclass
 from datetime import timedelta
@@ -64,8 +65,8 @@ class VideoResolution(str, enum.Enum):
 class BaseVideoMetadata:
     """A base class that wraps video metadata"""
 
-    filepath: str
-    caption_filepath: typing.Optional[str]
+    filepath: pathlib.Path
+    caption_filepath: typing.Optional[pathlib.Path]
     duration: timedelta
 
     def __post_init__(self) -> None:

@@ -2,16 +2,17 @@ import typing
 from dataclasses import dataclass
 
 import cv2
+import numpy as np
 import numpy.typing as npt
 import srt
 
-from video2pptx.base.video import BaseVideoMetadata
+from video2pptx.base.datamodels.video import BaseVideoMetadata
 from video2pptx.utils.sampling import sample_linspace
 
 
 def extract_frames_from_capture(
     capture: cv2.VideoCapture,
-) -> typing.Iterator[npt.NDArray]:
+) -> typing.Iterator[npt.NDArray[np.uint8]]:
     """It extracts frames from an OpenCV video capture"""
     num_frames = capture.get(cv2.CAP_PROP_FRAME_COUNT)
     num_read_frames = 0
@@ -25,16 +26,20 @@ def extract_frames_from_capture(
 
             break
 
+        frame = frame.astype(np.uint8)
+
         yield frame
         num_read_frames += 1
 
 
 def sample_frames_by_frame_rate(
-    frames_iter: typing.Iterator[npt.NDArray], frame_rate: int, desired_frame_rate: int
-) -> typing.Iterator[npt.NDArray]:
+    frames_iter: typing.Iterator[npt.NDArray[np.uint8]],
+    frame_rate: int,
+    desired_frame_rate: int,
+) -> typing.Iterator[npt.NDArray[np.uint8]]:
     """It samples from a sequence of frames by the given desired frame rate"""
     if desired_frame_rate > frame_rate:
-        raise ValueError("The desired frame rate must be \le than the frame rate")
+        raise ValueError("The desired frame rate must be le than the frame rate")
 
     frames_in_sec = []
 
@@ -71,14 +76,14 @@ class BaseExtractor:
 
     frame_rate: int = 30
 
-    def _extract_frames(self, filepath: str) -> typing.Iterator[npt.NDArray]:
+    def _extract_frames(self, filepath: str) -> typing.Iterator[npt.NDArray[np.uint8]]:
         """It extracts frames from a video at the given path
 
         The frame rate is capped at the original frame rate of the video.
 
         Returns
         -------
-        A generator of frames
+            A generator of frames
         """
         capture = cv2.VideoCapture(filepath)
 
@@ -105,7 +110,7 @@ class BaseExtractor:
 
         Returns
         -------
-        A generator of subtitles
+            A generator of subtitles
         """
         with open(caption_filepath, "rt") as f:
             srt_data = f.read()
@@ -115,16 +120,17 @@ class BaseExtractor:
     def extract(
         self, metadata: BaseVideoMetadata
     ) -> typing.Tuple[
-        typing.Iterator[npt.NDArray], typing.Optional[typing.Iterator[srt.Subtitle]]
+        typing.Iterator[npt.NDArray[np.uint8]],
+        typing.Optional[typing.Iterator[srt.Subtitle]],
     ]:
         """It extracts frames and subtitles from a video metadata
 
         Returns
         -------
-        A generator of frames and subtitles (or None)
+            A generator of frames and subtitles (or None)
         """
-        filepath = metadata.filepath
-        caption_filepath = metadata.caption_filepath
+        filepath = str(metadata.filepath)
+        caption_filepath = str(metadata.caption_filepath)
 
         frames = self._extract_frames(filepath)
 

@@ -4,7 +4,7 @@ import typing
 import pytest
 from slugify import slugify
 
-from video2pptx.youtube.downloader import YouTubeDownloader
+from video2pptx.youtube.models.downloader import YouTubeDownloader
 
 
 @pytest.fixture(name="downloader")
@@ -12,9 +12,9 @@ def fixture_downloader() -> YouTubeDownloader:
     return YouTubeDownloader()
 
 
-def videos_generator() -> typing.Iterator[typing.Tuple[str, str]]:
+def videos_generator() -> typing.Iterator[str]:
     """A generator of YouTube video Ids and extensions"""
-    samples = [("HoKDTa5jHvg", ".mp4")]
+    samples = ["HoKDTa5jHvg"]
 
     yield from samples
 
@@ -22,9 +22,7 @@ def videos_generator() -> typing.Iterator[typing.Tuple[str, str]]:
 @pytest.mark.unit
 @pytest.mark.parametrize("sample", videos_generator())
 def test_download(
-    ROOT_tests: pathlib.Path,
-    downloader: YouTubeDownloader,
-    sample: typing.Tuple[str, str],
+    ROOT_tests: pathlib.Path, downloader: YouTubeDownloader, sample: str
 ) -> None:
     """It tests that YouTube videos (and captions, if available) are downloaded correctly
 
@@ -35,16 +33,15 @@ def test_download(
     samples_dirpath = ROOT_tests / "stubs" / "samples"
     samples_dirpath.mkdir(parents=True, exist_ok=True)
 
-    src, extension = sample
-
-    video_metadata = downloader.download(src, samples_dirpath, file_extension=extension)
+    video_metadata = downloader.download(sample, samples_dirpath)
 
     title = video_metadata.title
+    extension = downloader.file_extension
 
     filename = f"{slugify(title)}{extension}"
     filepath = samples_dirpath / filename
 
-    assert video_metadata.filepath == str(filepath)
+    assert video_metadata.filepath == filepath
     assert filepath.exists()
 
     filepath.unlink()
@@ -55,7 +52,7 @@ def test_download(
     caption_filepath = samples_dirpath / caption_filename
 
     if video_metadata.caption_filepath is not None:
-        assert video_metadata.caption_filepath == str(caption_filepath)
+        assert video_metadata.caption_filepath == caption_filepath
         assert caption_filepath.exists()
 
         caption_filepath.unlink()

@@ -2,7 +2,7 @@ import typing
 from dataclasses import dataclass
 from datetime import datetime
 
-from video2pptx.base.video import BaseVideoMetadata
+from video2pptx.base.datamodels.video import BaseVideoMetadata
 
 
 @dataclass
